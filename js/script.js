@@ -2,7 +2,19 @@
 
 
 const API_KEY = ""
-const BASE_URL =  ""
+const BASE_URL =  "https://edmtrain.com/api/events?"
+//Example API CAll - Event Search API.
+// https://edmtrain.com/api/events?locationIds=36,94&client=324716fa-68fa-4c4d-8ae2-d6e384294662
+// Nearby Events API.
+// events?latitude=33.962&longitude=-118.358&state=California&client=
+// Locations API.
+// locations?state=Nevada&city=Las%20Vegas&client=
+// API Errors.
+// {
+//     "data": [],
+//     "message": "Location not found",
+//     "success": false
+//  }
 
 //Cached Elements References
 
@@ -27,3 +39,6 @@ const timePSD = (epoch) => {
 }
 // console.log(timePSD(1629939676))
 
+// API Call
+
+fetch(`${BASE_URL}location${$input.val()}&client=${API_KEY}`)
