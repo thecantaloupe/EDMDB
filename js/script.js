@@ -1,8 +1,14 @@
 //Constants and Variables
 
 
+
+
 const API_KEY = ""
 const BASE_URL =  "https://edmtrain.com/api/events?"
+const lat = ""
+const long = ""
+const NEAR_EVENT=  `latitude=${lat}&longitude=${lon}`
+
 //Example API CAll - Event Search API.
 // https://edmtrain.com/api/events?locationIds=36,94&client=324716fa-68fa-4c4d-8ae2-d6e384294662
 // Nearby Events API.
