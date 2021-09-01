@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Tahoma, Geneva, sans-serif;
+    height: 100vh; 
+    margin: 0;
+    background-color: lightgrey;
+}
+.topHead {
+    grid-area: header;
+    background-color: aliceblue;
+}
+.content {
+    grid-area: content;
+    background-color: antiquewhite;
+}
+.navwrap {
+    grid-area: nav;
+    background-color: aqua;
+}
+.mainCon {
+    grid-area: article;
+    background-color: aquamarine;
+}
+.nearLoc {
+    grid-area: aside;
+    background-color: azure;
+}
+.footer {
+    grid-area: footer;
+    background-color: cadetblue;
+}
+.wrapper {
+    display: grid;
+    gap: 20px;
+    background-color: lightgray;
+    grid-template-columns: 
+    "header"
+    "nav"
+    "content"
+    "article"
+    "aside"
+    "footer";
+}

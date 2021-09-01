@@ -11,10 +11,13 @@ const NEAR_EVENT=  `latitude=${lat}&longitude=${lon}`
 
 //Example API CAll - Event Search API.
 // https://edmtrain.com/api/events?locationIds=36,94&client=324716fa-68fa-4c4d-8ae2-d6e384294662
-// Nearby Events API.
+
+// Nearby Events API. (will use with a button for find events near me)
 // events?latitude=33.962&longitude=-118.358&state=California&client=
+
 // Locations API.
 // locations?state=Nevada&city=Las%20Vegas&client=
+
 // API Errors.
 // {
 //     "data": [],
@@ -48,3 +51,8 @@ const timePSD = (epoch) => {
 // API Call
 
 fetch(`${BASE_URL}location${$input.val()}&client=${API_KEY}`)
+    .then(function(data) {
+    })
+    .catch(function() {
+
+    });
