@@ -50,9 +50,28 @@ const timePSD = (epoch) => {
 
 // API Call
 
-// fetch(`${BASE_URL}location${$input.val()}&client=${API_KEY}`)
-//     .then(function(data) {
-//     })
-//     .catch(function() {
+//Was attempting to use fetch
+// function handleGetData(event) {
+//     event.preventDefault();
+//     console.log("Form Submitted");
+//     userInput = $input.val();
+//     fetch(`${BASE_URL}location${$input.val()}&client=${API_KEY}`)
+//         .then((response => {
+//             return response.json()
+//         })
+//         .then((data) => {         
+//         });
+//         .catch(error(); => {
+//         })
 
-//     });
+function handleGetData(event){
+    event.preventDefault();
+    console.log("Form Submitted");
+    userInput = $input.val();
+    $.ajax({
+        url: `${BASE_URL}location${$input.val()}&client=${API_KEY}`
+    }).then(
+        function(data){
+            
+        }
+    )

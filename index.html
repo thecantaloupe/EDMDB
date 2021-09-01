@@ -8,16 +8,42 @@
     <script defer src="./js/script.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <title>EDM DB</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
     <div class="wrapper">
         <header class="topHead">This is the top header</header>
-        <div class="navwrap">Navwrap</div>
-        <article class="mainCon">MainCap</article>
-        <aside class="nearLoc">NearloC
-            <nav class="innernav">Nav</nav>
-            <div class="searchfields"></div>
-        </aside>
+        <div class="navwrap">
+            <nav class="innerNav">Nav</nav>
+            <div class="searchFields">searchfields</div>
+        </div>
+        <article class="mainCon">MainCap
+            <main>
+                <div class="mainDetails">
+                    <h2>Your EDM Show</h2>    
+                    <p id="name"></p>
+                    <p id="ages"></p>
+                    <p class="location"></p>
+                    <p class="address"></p>
+                    <p class="state"></p>
+                </div>
+                <div class="subDetails">
+                    <h3>Other Details</h3>
+                    <p id="date"></p>
+                    <p class="startTime"></p>
+                    <p class="endTime"></p>
+                </div>
+                <div class="optionalDetails">
+                    <p class="latitude"></p>
+                    <p class="longitude"></p>
+                </div>
+                <button class="btn btn-block btn-info">Show Artists</button>
+                <div class="artistlist">
+                </div>
+        </article>
+
+            </main>
+        <aside class="nearLoc">NearloC</aside>
         <footer class="footer">footer</footer>
     </div>
 </body>
