@@ -10,18 +10,16 @@ body {
 .topHead {
     grid-area: header;
     background-color: aliceblue;
-}
-.content {
-    grid-area: content;
-    background-color: antiquewhite;
+    height: 25vh;
 }
 .navwrap {
     grid-area: nav;
     background-color: aqua;
 }
 .mainCon {
-    grid-area: article;
-    background-color: aquamarine;
+    grid-area: content;
+    background-color:lightslategrey;
+    height: 65vh;
 }
 .nearLoc {
     grid-area: aside;
@@ -30,16 +28,27 @@ body {
 .footer {
     grid-area: footer;
     background-color: cadetblue;
+    height: 10vh;
 }
 .wrapper {
     display: grid;
-    gap: 20px;
+    gap: 10px;
     background-color: lightgray;
-    grid-template-columns: 
+    grid-template-areas: 
     "header"
     "nav"
     "content"
-    "article"
     "aside"
     "footer";
+}
+@media (min-width: 700px) {
+    .wrapper {
+    /* fr units will evenly divide horizontal axis */
+      grid-template-columns: 1fr 5fr 1fr;
+      grid-template-areas:
+        "header header  header"
+        "nav    content aside"
+        "nav    content aside"
+        "footer footer  footer"
+     }
 }
