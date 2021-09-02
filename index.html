@@ -15,7 +15,12 @@
         <header class="topHead">This is the top header</header>
         <div class="navwrap">
             <nav class="innerNav">Nav</nav>
-            <div class="searchFields">searchfields</div>
+            <div class="searchFields">searchfields
+                <form class="form flex-ctr-clm">
+                    <input class="tform" type="text" placeholder="Artist"></input>
+                    <input class="tform" type="text" placeholder="Larpist"></input>
+                    <input type="submit" value="Search">
+            </div>
         </div>
         <article class="mainCon">MainCap
             <main>
@@ -23,22 +28,22 @@
                     <h2>Your EDM Show</h2>    
                     <p id="name"></p>
                     <p id="ages"></p>
-                    <p class="location"></p>
-                    <p class="address"></p>
-                    <p class="state"></p>
+                    <p id="location"></p>
+                    <p id="address"></p>
+                    <p id="state"></p>
                 </div>
-                <div class="subDetails">
+                <div id="subDetails">
                     <h3>Other Details</h3>
                     <p id="date"></p>
-                    <p class="startTime"></p>
-                    <p class="endTime"></p>
+                    <p id="startTime"></p>
+                    <p id="endTime"></p>
                 </div>
-                <div class="optionalDetails">
-                    <p class="latitude"></p>
-                    <p class="longitude"></p>
+                <div id="optionalDetails">
+                    <p id="latitude"></p>
+                    <p id="longitude"></p>
                 </div>
                 <button class="btn btn-block btn-info">Show Artists</button>
-                <div class="artistlist">
+                <div id="artistlist">
                 </div>
         </article>
 
