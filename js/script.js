@@ -44,16 +44,13 @@ $('#hiddenArtists').hide()
 ////////////////
 // Functions
 ////////////////
-
 //string uppercase
 const capitalize = (string) =>{
     return string[0].toUpperCase() + string.substring(1)
 }
-
 //replace space with + in case needed in search
 let test = "this test"
 let replace = test.replace(/\s/g ,'+')
-
 const timePSD = (epoch) => {
     let time = epoch * 1000
     let curDate = new Date(time)
@@ -67,6 +64,7 @@ const timePSD = (epoch) => {
 // API Call
 ////////////////
 // ${BASE_URL}location${$input.val()}&client=${API_KEY}
+
 // Was attempting to use fetch, got it to work ^.^ s
 function handleGetData(event) {
     event.preventDefault();
@@ -78,7 +76,6 @@ function handleGetData(event) {
         }))
         .then(function(data) { 
             let edm = data.data
-            let artist = edm.artistList
             console.log(edm) 
 // Artist list appended at bottom in ul
             return edm.map(function(edm) {
@@ -97,30 +94,27 @@ function handleGetData(event) {
     .catch(function(error) {
         console.log('bad request: ', error);
     })
-    }
+}
 
-////////////////
-//Keeping in case fetch fails
-//Stop trying to make fetch a thing!
-///////////////
-// function handleGetData(event){
-//     event.preventDefault();
-//     console.log("Form Submitted");
-//     userInput = $input.val();
-//     $.ajax({
-//         url: `https://edmtrain.com/api/events?artistIds=195&client=324716fa-68fa-4c4d-8ae2-d6e384294662`
-//         // url: `${BASE_URL}location${$input.val()}&client=${API_KEY}`
-//         }).then(
-//             function(data){
-//             console.log(data);
-//             },
-//             function(error){
-//             console.log('bad request: ', error);
-//             });
-// }
-
-
-
-
+    
 $("#btnArt").on('click', () => {$('#hiddenArtists').toggle()})
 $('form').on('submit', handleGetData)
+    ////////////////
+    //Keeping in case fetch fails
+    //Stop trying to make fetch a thing!
+    ///////////////
+    // function handleGetData(event){
+    //     event.preventDefault();
+    //     console.log("Form Submitted");
+    //     userInput = $input.val();
+    //     $.ajax({
+    //         url: `https://edmtrain.com/api/events?artistIds=195&client=324716fa-68fa-4c4d-8ae2-d6e384294662`
+    //         // url: `${BASE_URL}location${$input.val()}&client=${API_KEY}`
+    //         }).then(
+    //             function(data){
+    //             console.log(data);
+    //             },
+    //             function(error){
+    //             console.log('bad request: ', error);
+    //             });
+    // }
