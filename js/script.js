@@ -1,5 +1,6 @@
+////////////////
 //Constants and Variables
-
+////////////////
 const $input = $('input[type="text"]')
 const $name = $('#name')
 const $ages = $('#ages')
@@ -11,7 +12,7 @@ const $startTime = $('#startTime')
 const $endTime = $('#endTime')
 const $latitude = $('#latitude')
 const $longitude = $('#longitude')
-const $artistlist = $('#artistlist')
+const $artistList = $('#artistList')
 
 const API_KEY = ""
 const BASE_URL =  "https://edmtrain.com/api/events?"
@@ -19,6 +20,10 @@ const lat = ""
 const long = ""
 const NEAR_EVENT=  `latitude=${lat}&longitude=${long}`
 
+////////////////
+//Hidden elements
+////////////////
+$('#hiddenArtists').hide()
 //Example API CAll - Event Search API.
 // https://edmtrain.com/api/events?locationIds=36,94&client=324716fa-68fa-4c4d-8ae2-d6e384294662
 
@@ -35,17 +40,17 @@ const NEAR_EVENT=  `latitude=${lat}&longitude=${long}`
 //     "success": false
 //  }
 
-//Cached Elements References
 
-
+////////////////
 // Functions
+////////////////
 
 //string uppercase
 const capitalize = (string) =>{
     return string[0].toUpperCase() + string.substring(1)
 }
 
-//replace space with +
+//replace space with + in case needed in search
 let test = "this test"
 let replace = test.replace(/\s/g ,'+')
 
@@ -58,9 +63,11 @@ const timePSD = (epoch) => {
 }
 // console.log(timePSD(1629939676))
 
+////////////////
 // API Call
+////////////////
 // ${BASE_URL}location${$input.val()}&client=${API_KEY}
-// Was attempting to use fetch
+// Was attempting to use fetch, got it to work ^.^ s
 function handleGetData(event) {
     event.preventDefault();
     console.log("Form Submitted");
@@ -70,15 +77,32 @@ function handleGetData(event) {
             return response.json();
         }))
         .then(function(data) { 
-            console.log(data);
             let edm = data.data
-            console.log(edm)        
+            let artist = edm.artistList
+            console.log(edm) 
+// Artist list appended at bottom in ul
+            return edm.map(function(edm) {
+                for (let art of edm.artistList){
+                    let li = $('<li>')
+                    let span = $('<span>')
+                    span.html(`${art.name} at ${edm.venue.name} on ${edm.date}`)
+                    li.append(span)
+                    // cant believe this worked! but wanted to grab all unique names from query to populate the artists column at the bottom
+                    if(!($('ul').text().indexOf(art.name) !== -1)) {
+                        $('#artistList').append(li)
+                    }
+                }
+            })       
         })
     .catch(function(error) {
         console.log('bad request: ', error);
     })
     }
 
+////////////////
+//Keeping in case fetch fails
+//Stop trying to make fetch a thing!
+///////////////
 // function handleGetData(event){
 //     event.preventDefault();
 //     console.log("Form Submitted");
@@ -98,5 +122,5 @@ function handleGetData(event) {
 
 
 
-
+$("#btnArt").on('click', () => {$('#hiddenArtists').toggle()})
 $('form').on('submit', handleGetData)

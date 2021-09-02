@@ -10,22 +10,22 @@ body {
 .topHead {
     grid-area: header;
     background-color: aliceblue;
-    height: 25vh;
+    min-height: 25vh;
 }
 .navwrap {
     grid-area: nav;
     background-color: aqua;
-    display: grid;
-    gap: 25 px;
-    grid-template-rows: 1fr 4fr;
+    display: flex;
+    flex-direction: column;
+    /* gap: 25 px;
     grid-template-areas: 
     "innerNav"
-    "searchFields";
+    "searchFields"; */
 }
 .mainCon {
     grid-area: content;
     background-color:lightslategrey;
-    height: 65vh;
+    min-height: 65vh;
 }
 .nearLoc {
     grid-area: aside;
@@ -34,7 +34,7 @@ body {
 .footer {
     grid-area: footer;
     background-color: cadetblue;
-    height: 10vh;
+    min-height: 10vh;
 }
 .wrapper {
     display: grid;
@@ -48,12 +48,14 @@ body {
     "footer";
 }
 .innerNav {
-    grid-area: innerNav;
+    /* grid-area: innerNav; */
     background-color: tan;
+    height: 20vh;
 }
 .searchFields {
-    grid-area: searchFields;
+    /* grid-area: searchFields; */
     background-color: rgb(94, 145, 145);
+    height: 100%;
 }
 @media (min-width: 700px) {
     .wrapper {
