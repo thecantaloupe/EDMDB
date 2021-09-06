@@ -50,12 +50,15 @@ body {
 .innerNav {
     /* grid-area: innerNav; */
     background-color: tan;
-    height: 20vh;
+    height: 95px;
+}
+
+.stretch {
+    background-color: rgb(94, 145, 145);
+    height: 100%;
 }
 .searchFields {
     /* grid-area: searchFields; */
-    background-color: rgb(94, 145, 145);
-    height: 100%;
 }
 @media (min-width: 700px) {
     .wrapper {

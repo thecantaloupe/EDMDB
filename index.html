@@ -14,12 +14,33 @@
     <div class="wrapper">
         <header class="topHead">This is the top header</header>
         <div class="navwrap">
-            <nav class="innerNav">Nav</nav>
-            <div class="searchFields">searchfields
-                <form class="form flex-ctr-clm">
-                    <input class="tform" type="text" placeholder="Artist"></input>
-                    <input class="tform" type="text" placeholder="Larpist"></input>
-                    <input type="submit" value="Search">
+            <nav class="innerNav">Nav
+                <label for="pulldown">Choose how you would like to search:</label>
+                <select name="pulldown" id="pulldown" onchange="changemenu()">
+                    <option value="1">Event Search</option>
+                    <option value="2">Closest Events</option>
+                    <option value="3">Locations Between</option>
+                </select>
+            </nav>
+            <div class = "stretch"> 
+                <div class="searchFields" id="Menu1">
+                    <form class="form flex-ctr-clm">Search for Events
+                        <input name="artist[]" class="form" type="text" placeholder="Artist"></input>
+                        <input name="start[]" id="testt" class="form" type="text" placeholder="Start Date"></input>
+                        <input type="submit" value="Search">
+                </div>
+                <div class="searchFields" id="Menu2">Search for Events Near location
+                    <form class="form flex-ctr-clm">
+                        <input class="form" type="text" placeholder="Artist"></input>
+                        <input class="form" type="text" placeholder="Larpist"></input>
+                        <input type="submit" value="Search">
+                    </div>
+                    <div class="searchFields" id="Menu3">Find events between two locations!
+                        <form class="for">
+                            <input name = "address1[]" class="form" type="text" placeholder="First Address"></input>
+                            <input name = "address2[]" class="form" type="text" placeholder="Second Address"></input>
+                            <input type="submit" value="Search" class="btn-sm">
+                    </div>
             </div>
         </div>
         <article class="mainCon">MainCap
