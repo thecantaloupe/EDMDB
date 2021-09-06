@@ -7,6 +7,10 @@ body {
     margin: 0;
     background-color: lightgrey;
 }
+a {
+    color: black !important;
+}
+
 .topHead {
     grid-area: header;
     background-color: aliceblue;
@@ -57,6 +61,7 @@ body {
     background-color: rgb(94, 145, 145);
     height: 100%;
 }
+
 .searchFields {
     /* grid-area: searchFields; */
 }

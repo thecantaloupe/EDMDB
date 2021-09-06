@@ -26,20 +26,22 @@
                 <div class="searchFields" id="Menu1">
                     <form class="form flex-ctr-clm">Search for Events
                         <input name="artist[]" class="form" type="text" placeholder="Artist"></input>
-                        <input name="start[]" id="testt" class="form" type="text" placeholder="Start Date"></input>
-                        <input type="submit" value="Search">
+                        <input name="start[]"  class="form" type="text" placeholder="Start Date"></input>
+                        <input name="eventname[]" class="form" type="text" placeholder="Event Name"></input>
+                        <input type="submit" name="form" id="form" value="Search">
                 </div>
                 <div class="searchFields" id="Menu2">Search for Events Near location
                     <form class="form flex-ctr-clm">
                         <input class="form" type="text" placeholder="Artist"></input>
                         <input class="form" type="text" placeholder="Larpist"></input>
-                        <input type="submit" value="Search">
+                        <input type="submit" name="form2" value="Search">
                     </div>
                     <div class="searchFields" id="Menu3">Find events between two locations!
-                        <form class="for">
-                            <input name = "address1[]" class="form" type="text" placeholder="First Address"></input>
-                            <input name = "address2[]" class="form" type="text" placeholder="Second Address"></input>
-                            <input type="submit" value="Search" class="btn-sm">
+                        <form class="form3">
+                            <input name = "address1[]" class="form3" type="text" placeholder="First Address"></input>
+                            <input name = "address2[]" class="form3" type="text" placeholder="Second Address"></input>
+                            <input name="state[]"  class="form3" type="text" placeholder="State"></input>
+                            <input type="submit" name="form3" id="form3" value="Search" class="btn-sm">
                     </div>
             </div>
         </div>
@@ -67,6 +69,13 @@
                 <div id="hiddenArtists">
                     <h4>Unique Artists</h4>
                     <ul id="artistList"></ul>
+                    <label for="pulldown2">How many additional Artists:</label>
+                    <select name="pulldown2" id="pulldown2" onchange="moreartists()">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
                 </div>
         </article>
 
