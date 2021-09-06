@@ -70,13 +70,14 @@ function handleGetData(event) {
     event.preventDefault();
     console.log("Form Submitted");
     userInput = $input.val();
-    fetch(`https://edmtrain.com/api/events?artistIds=195&client=324716fa-68fa-4c4d-8ae2-d6e384294662`)
+    fetch(``)
         .then((response => {
             return response.json();
         }))
         .then(function(data) { 
             let edm = data.data
             console.log(edm) 
+
 // Artist list appended at bottom in ul
             return edm.map(function(edm) {
                 for (let art of edm.artistList){
@@ -86,10 +87,7 @@ function handleGetData(event) {
                     li.append(span)
                     // cant believe this worked! but wanted to grab all unique names from query to populate the artists column at the bottom
                     if(!($('ul').text().indexOf(art.name) !== -1)) {
-                        $('#artistList').append(li)
-                    }
-                }
-            })       
+                        $('#artistList').append(li)}}})       
         })
     .catch(function(error) {
         console.log('bad request: ', error);
@@ -108,7 +106,7 @@ $('form').on('submit', handleGetData)
     //     console.log("Form Submitted");
     //     userInput = $input.val();
     //     $.ajax({
-    //         url: `https://edmtrain.com/api/events?artistIds=195&client=324716fa-68fa-4c4d-8ae2-d6e384294662`
+    //         url: ``
     //         // url: `${BASE_URL}location${$input.val()}&client=${API_KEY}`
     //         }).then(
     //             function(data){
