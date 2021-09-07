@@ -1,3 +1,4 @@
+let edm ="";
 ////////////////
 //Constants and Variables
 ////////////////
@@ -7,24 +8,32 @@ const $location = $('#location')
 const $address = $('#address')
 const $state = $('#state')
 const $date = $('#date')
-const $startTime = $('#startTime')
-const $endTime = $('#endTime')
+const $link = $('#link')
 const $latitude = $('#latitude')
 const $longitude = $('#longitude')
 const $artistList = $('#artistList')
-let date = new Date().toISOString().slice(0, 10)
 //Input information 
 const $input = $('input[type="text"]')
-const $inputstate = $('input[type="text"][name="state[]"]')
 const $inputaddr1 = $('input[type="text"][name="address1[]"]')
 const $inputaddr2 = $('input[type="text"][name="address2[]"]')
+const $city1 = $('input[type="text"][name="city1[]"]')
+const $state1 = $('input[type="text"][name="state1[]"]')
+const $startdate1 = $('input[type="date"][name="start1[]"]')
+const $eventname = $('input[type="text"][name="eventname[]"]')
+//checkbox
+let VIRTUAL1 = "false"
+let VIRTUAL3 = "false"
 //pulldowns
 let $pulldown = $("#pulldown :selected").val()
 let $pulldown2 = $("#pulldown2 :selected").val()
 let keeper = ""
+//Default Data
+$('#date1').val(new Date().toISOString().slice(0, 10));
+//Location ID init
+let LOCID = ""
 
 
-const API_KEY1= "xwR7tnAX2l7iC88Z7ZeiVlQJW9d0jNwC"
+const API_KEY1= ""
 const BASE_URL1 = "https://www.mapquestapi.com/geocoding/v1/batch?&inFormat=kvp&outFormat=json&thumbMaps=false&maxResults=1&location="
 const BASE_URL1_reverse ="https://www.mapquestapi.com/geocoding/v1/reverse?"
 let LAT1 = ""
@@ -32,37 +41,64 @@ let LON1 = ""
 let LAT2 = ""
 let LON2 = ""
 
-const API_KEY2= "324716fa-68fa-4c4d-8ae2-d6e384294662"
+
+
+const API_KEY2= ""
 const BASE_URL2 =  "https://edmtrain.com/api/events?"
-
-
-//nearby events api
-// const NEAR_EVENT=  `latitude=${lat}&longitude=${long}`
+const BASE_URL2LOC =  "https://edmtrain.com/api/locations?"
+let FULL_URL = ``
+let LOC_URL = ``
 let STATE= ""
 
 const urlbuild = () => {
-    if ($inputstate.val() != '') {
-        STATE = `state=${$inputstate.val()}`
+    VIRTUAL1 = $("#incVirtual1").is(":checked")
+    VIRTUAL3 = $("#incVirtual3").is(":checked")
+
+    if ($("#pulldown :selected").val() == 1) {
+        //get loc id
+        let cityI = `city=${$city1.val()}`
+        let stateI = `state=${$state1.val()}`
+
+        let BUILDURL = ""
+        let locID = `&locationIds=${LOCID}`
+        let starD = `&startDate=${$startdate1.val()}`
+        let eventN = `&eventName=${$eventname.val()}`
+        if ($city1.val() !== '' && $state1.val() !== '') {BUILDURL += locID}
+        if ($startdate1.val() != "") {BUILDURL += starD}
+        if ($eventname.val() != "") {BUILDURL += eventN}
+        FULL_URL = `${BASE_URL2}livestreamInd=${VIRTUAL1}${BUILDURL}&client=${API_KEY2}`
+        console.log(FULL_URL)
+    } if (($("#pulldown :selected").val() == 3)) {
+        if ($inputaddr1.val() == 0 || $inputaddr2.val() == 0){
+            alert("Please Fill in all Fields")
+        }
+        FULL_URL = `${BASE_URL2}livestreamInd=${VIRTUAL3}&latitude=${aveLat}&longitude=${aveLon}&state=${STATE}&client=${API_KEY2}`
+        console.log(FULL_URL)
     }
+
 }
 
+// Locations API.
+// locations?state=Nevada&city=Las%20Vegas&client=
+
+//locations API
+// state city
+// need to get id via data.data[0].id and save to variable
+// this variable will be fed into search for 1
 
 
-// for location search you need latitude longitude and state
+//if 1 use this
+// eventName   startDate  locationIds
+
+
+
 ////////////////
 //Hidden elements
 ////////////////
 $('#hiddenArtists').hide()
 $('#Menu2').hide()
 $('#Menu3').hide()
-//Example API CAll - Event Search API.
-// https://edmtrain.com/api/events?locationIds=36,94&client=324716fa-68fa-4c4d-8ae2-d6e384294662
 
-// Nearby Events API. (will use with a button for find events near me)
-// events?latitude=33.962&longitude=-118.358&state=California&client=
-
-// Locations API.
-// locations?state=Nevada&city=Las%20Vegas&client=
 
 ////////////////
 // Pulldown and Search fields
@@ -101,12 +137,13 @@ const moreartists = () => {
 const capitalize = (string) =>{
     return string[0].toUpperCase() + string.substring(1)
 }
-//replace space with + in case needed in search
 
+//replace space with + in case needed in search
 const replaceSpace = (word) => {
     return word.replace(/\s/g ,'+')
 }
 
+// conver epoch to psd
 const timePSD = (epoch) => {
     let time = epoch * 1000
     let curDate = new Date(time)
@@ -115,6 +152,8 @@ const timePSD = (epoch) => {
     return parseTime
 }
 // console.log(timePSD(1629939676))
+
+//Get average lat and lon
 let aveLat = ""
 let aveLon = ""
 const latlonMath = () =>{
@@ -126,13 +165,33 @@ const latlonMath = () =>{
 ////////////////
 // API Call
 ////////////////
+const handleGetlocationID = () => {
+    console.log("LocationID form Submitted")
+    console.log(`${BASE_URL2LOC}state=${$state1.val()}&city=${replaceSpace($city1.val())}&client=${API_KEY2}`)
+    fetch(`${BASE_URL2LOC}state=${$state1.val()}&city=${$city1.val()}&client=${API_KEY2}`)
+        .then((response => {
+            return response.json();
+        }))
+        .then(function(data) {
+            LOCID = data.data[0].id
+            console.log("locID="+LOCID)
+            urlbuild()
+        })
+        .then(function(){
+            handleGetData()
+        })
+        .catch(function(error) {
+            console.log('bad request: ', error)
+        })
+}
 
 // need to add reverse search for getting state from lat and lon
 function handleGetLatLon(loc) {
-    urlbuild()
     if ($("#pulldown :selected").val() == 3) {
         console.log("Location Received");
-        console.log(`${BASE_URL1}${$inputaddr1.val()}&location=${$inputaddr2.val()}&key=${API_KEY1}`)
+        ////////////////////
+        // First fetch to obtain both lat and lons
+        ////////////////////
         fetch(`${BASE_URL1}${$inputaddr1.val()}&location=${$inputaddr2.val()}&key=${API_KEY1}`)
             .then((response => {
                 return response.json();
@@ -146,39 +205,47 @@ function handleGetLatLon(loc) {
                 LON2 = results[1].locations[0].latLng.lng
                 latlonMath()
                 
-            })
-            .then(fetch(`${BASE_URL1}${$inputaddr1.val()}&location=${$inputaddr2.val()}&key=${API_KEY1}`)
+                ////////////////////
+                // After obtaining averaged lat and lon, obtain State to feel into edm train api
+                ////////////////////
+                fetch(`${BASE_URL1_reverse}key=${API_KEY1}&location=${aveLat}%2C${aveLon}&outFormat=json&thumbMaps=false`)
                 .then((response => {
+                    console.log(`${BASE_URL1_reverse}key=${API_KEY1}&location=${aveLat}%2C${aveLon}&outFormat=json&thumbMaps=false`)
                     return response.json();
                 }))
                 .then(function(data) {
                     let results = data.results
                     console.log(results)
-                    STATE = results[0].locations[0].adminArea3
+                    shortstate = results[0].locations[0].adminArea3
+                    STATE = state_obj[shortstate]
+                    urlbuild()
                     handleGetData();
                 })
-                )
+            })
+            
             .catch(function(error) {
                 console.log('bad request: ', error)
             })
     }
 }
-
+var holding;
 // Was attempting to use fetch, got it to work ^.^ s
 function handleGetData() {
-    console.log("Form Submitted");
-    userInput = $input.val();
-    console.log(`${BASE_URL2}latitude=${LAT1}&longitude=${LON1}&state=${STATE}startDate=${date}&client=${API_KEY2}`)
-    fetch(`${BASE_URL2}latitude=${LAT1}&longitude=${LON1}&state=${STATE}startDate=${date}&client=${API_KEY2}`)
-    // fetch(`https://edmtrain.com/api/events?artistIds=195&client=324716fa-68fa-4c4d-8ae2-d6e384294662`)
+    console.log("Get Data Form Submitted");
+    console.log(FULL_URL)
+    fetch(`${FULL_URL}`)
         .then((response => {
             return response.json();
         }))
         .then(function(data) { 
             let edm = data.data
             console.log(edm) 
-
-// Artist list appended at bottom in ul
+            holding = edm
+            if (edm.length ==0) {
+                $name.html('<h1>No Data for this location</h1>')
+            }
+            render(edm)
+            // Artist list appended at bottom in ul
             edm.map(function(edm) {
                 for (let art of edm.artistList){
                     let li = $('<li>')
@@ -193,31 +260,108 @@ function handleGetData() {
             keeper = $('#artistList').children()
             moreartists()  
         })
-    .catch(function(error) {
-        console.log('bad request: ', error);
-    })
+        .catch(function(error) {
+            console.log('bad request: ', error);
+        })
 }
 
+const labeler = (label) => {
+    return '<label>'+label+':&emsp;</label>'
+}
+
+const render = (edm) => {
+    //Main Details
+    if (edm[0].artistList[0] == []){
+        $name.html(labeler("Artist")+edm[0].artistList[0].name)
+    } 
+    $ages.html(labeler("Ages")+edm[0].ages)
+    $location.html(labeler("Venue")+edm[0].venue.name)
+    $address.html(labeler("Address")+edm[0].venue.address)
+    $state.html(edm[0].venue.location)
+    //Sub Details
+    $date.html(labeler("Data")+edm[0].date)
+    $link.html(labeler("Link to event")+edm[0].link)
+    $link.attr("href",edm[0].link)
+    //hide null els
+    $('p').each(function() {
+        if ($(this).text().split("null").length > 1)
+        $(this).hide()
+    })
+}
     
 $("#btnArt").on('click', () => {$('#hiddenArtists').show()})
 
 
-// $('form').on('submit', () => {testfun()})
-// const testfun = () => {
-//     if ($pulldown ==3) {
-//         handleGetLatLon
-//     } else {
-//         handleGetData
-//         console.log("tried2")
-//     }
-// }
+const state_obj = {
+        "AL": "Alabama",
+        "AK": "Alaska",
+        "AS": "American Samoa",
+        "AZ": "Arizona",
+        "AR": "Arkansas",
+        "CA": "California",
+        "CO": "Colorado",
+        "CT": "Connecticut",
+        "DE": "Delaware",
+        "DC": "District Of Columbia",
+        "FM": "Federated States Of Micronesia",
+        "FL": "Florida",
+        "GA": "Georgia",
+        "GU": "Guam",
+        "HI": "Hawaii",
+        "ID": "Idaho",
+        "IL": "Illinois",
+        "IN": "Indiana",
+        "IA": "Iowa",
+        "KS": "Kansas",
+        "KY": "Kentucky",
+        "LA": "Louisiana",
+        "ME": "Maine",
+        "MH": "Marshall Islands",
+        "MD": "Maryland",
+        "MA": "Massachusetts",
+        "MI": "Michigan",
+        "MN": "Minnesota",
+        "MS": "Mississippi",
+        "MO": "Missouri",
+        "MT": "Montana",
+        "NE": "Nebraska",
+        "NV": "Nevada",
+        "NH": "New Hampshire",
+        "NJ": "New Jersey",
+        "NM": "New Mexico",
+        "NY": "New York",
+        "NC": "North Carolina",
+        "ND": "North Dakota",
+        "MP": "Northern Mariana Islands",
+        "OH": "Ohio",
+        "OK": "Oklahoma",
+        "OR": "Oregon",
+        "PW": "Palau",
+        "PA": "Pennsylvania",
+        "PR": "Puerto Rico",
+        "RI": "Rhode Island",
+        "SC": "South Carolina",
+        "SD": "South Dakota",
+        "TN": "Tennessee",
+        "TX": "Texas",
+        "UT": "Utah",
+        "VT": "Vermont",
+        "VI": "Virgin Islands",
+        "VA": "Virginia",
+        "WA": "Washington",
+        "WV": "West Virginia",
+        "WI": "Wisconsin",
+        "WY": "Wyoming"
+    }
 
-//click works but sumbit did not
+//click works but submit did not
 $('#form').on('click', (event) => {
+    $('#artistList').children().remove()
     event.preventDefault()
-    handleGetData()
+    handleGetlocationID()
 })
 $('#form3').on('click', (event) => {
+    $('#artistList').children().remove()
     event.preventDefault()
     handleGetLatLon()
 })

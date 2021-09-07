@@ -6,46 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script defer src="./js/script.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <title>EDM DB</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
     <div class="wrapper">
-        <header class="topHead">This is the top header</header>
+        <header class="topHead">Welcome Home</header>
         <div class="navwrap">
-            <nav class="innerNav">Nav
+            <nav class="innerNav"><br>
                 <label for="pulldown">Choose how you would like to search:</label>
                 <select name="pulldown" id="pulldown" onchange="changemenu()">
                     <option value="1">Event Search</option>
-                    <option value="2">Closest Events</option>
+                    <!-- <option value="2">Closest Events</option> -->
                     <option value="3">Locations Between</option>
                 </select>
             </nav>
             <div class = "stretch"> 
                 <div class="searchFields" id="Menu1">
                     <form class="form flex-ctr-clm">Search for Events
-                        <input name="artist[]" class="form" type="text" placeholder="Artist"></input>
-                        <input name="start[]"  class="form" type="text" placeholder="Start Date"></input>
+                        <input name="city1[]" class="form" type="text" placeholder="City"></input>
+                        <input name="state1[]" class="form" type="text" placeholder="State"></input>
+                        <input name="start1[]"  id="date1" class="form" type="date"></input>
                         <input name="eventname[]" class="form" type="text" placeholder="Event Name"></input>
+                        <label for="incVirtual1">Include Virtual Events?</label>
+                        <input name="virtual[]"  id="incVirtual1" class="form3" type="checkbox" placeholder="Include Virtual Events"></input>
                         <input type="submit" name="form" id="form" value="Search">
                 </div>
-                <div class="searchFields" id="Menu2">Search for Events Near location
+                <!-- <div class="searchFields" id="Menu2">Search for Events Near location
                     <form class="form flex-ctr-clm">
                         <input class="form" type="text" placeholder="Artist"></input>
                         <input class="form" type="text" placeholder="Larpist"></input>
                         <input type="submit" name="form2" value="Search">
-                    </div>
+                    </div> -->
                     <div class="searchFields" id="Menu3">Find events between two locations!
                         <form class="form3">
                             <input name = "address1[]" class="form3" type="text" placeholder="First Address"></input>
                             <input name = "address2[]" class="form3" type="text" placeholder="Second Address"></input>
-                            <input name="state[]"  class="form3" type="text" placeholder="State"></input>
+                            <label for="incVirtual3">Include Virtual Events?</label>
+                            <input name="virtual[]"  id="incVirtual3" class="form3" type="checkbox" placeholder="Include Virtual Events"></input>
                             <input type="submit" name="form3" id="form3" value="Search" class="btn-sm">
                     </div>
             </div>
         </div>
-        <article class="mainCon">MainCap
+        <article class="mainCon">
             <main>
                 <div class="mainDetails">
                     <h2>Your EDM Show</h2>    
@@ -58,8 +62,7 @@
                 <div id="subDetails">
                     <h3>Other Details</h3>
                     <p id="date"></p>
-                    <p id="startTime"></p>
-                    <p id="endTime"></p>
+                    <a id="link" href=""></a>
                 </div>
                 <div id="optionalDetails">
                     <p id="latitude"></p>
@@ -80,8 +83,8 @@
         </article>
 
             </main>
-        <aside class="nearLoc">NearloC</aside>
-        <footer class="footer">footer</footer>
+        <aside class="nearLoc"></aside>
+        <footer class="footer">"I" love the music and the positivity that’s at the core of rave culture. People being their best selves and looking out for one another is the norm. This scene is beautiful, and dance music is the perfect soundtrack. Life can be tough, people can be mean, but you get in a room with a bunch of ravers and it seems like those problems aren’t as big anymore. Dancing to amazing music and being surrounded by positive people is like therapy.”<br><i>-Pasqualle Rotella</i></footer>
     </div>
 </body>
 </html>
