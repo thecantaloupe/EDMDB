@@ -33,4 +33,4 @@ CSS | HTML5 | JavaScript | Jquery | EDM Train API | Mapquest API | Fetch
 ## Wireframe
 
 ---
-![Wireframe](/image/wireframe.png)
+![Wireframe](/images/wireframe.png)
